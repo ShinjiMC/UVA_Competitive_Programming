@@ -4,8 +4,7 @@ int main() {
     int N; // Número de herederos
     int R; // Dimensión A del reino
     int C; // Dimensión B del reino
-    int K; // Número de batallas
-    int valor;
+    int K,valor;
     
     int movimientos[4][2] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}}; // Movimientos arriba, izquierda, derecha, abajo.
 
