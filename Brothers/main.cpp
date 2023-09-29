@@ -1,5 +1,5 @@
 #include <iostream>
-
+//By Braulio Nayap Maldonado Casilla - Sebastián Agenor Zamalloa Molina - Luciana Julissa Huaman Coaquira
 int main() {
     int N; // Número de herederos
     int R; // Dimensión A del reino
