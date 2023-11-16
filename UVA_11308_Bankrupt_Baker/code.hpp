@@ -1,33 +1,66 @@
 #include <iostream>
+#include <algorithm>
+#include <string>
 #include <unordered_map>
+#include <set>
 
 int code()
 {
-    std::unordered_map<char, int> codeParse = {
-        {'B', 1}, {'F', 1}, {'P', 1}, {'V', 1}, {'C', 2}, {'G', 2}, {'J', 2}, {'K', 2}, {'Q', 2}, {'S', 2}, {'X', 2}, {'Z', 2}, {'D', 3}, {'T', 3}, {'L', 4}, {'M', 5}, {'N', 5}, {'R', 6}};
-    std::string cad;
-    while (std::cin >> cad)
+    long T;
+    std::cin >> T;
+    std::cin.ignore();
+    while (T--)
     {
-        std::string ans;
-        int ant = -1;
-        for (auto i : cad)
+        std::string name;
+        std::getline(std::cin >> std::ws, name);
+        std::transform(name.begin(), name.end(), name.begin(), ::toupper);
+        long m, n, b;
+        std::cin >> m >> n >> b;
+        std::cin.ignore();
+        std::string ingredient;
+        long price;
+        std::unordered_map<std::string, long> objects;
+        while (m--)
         {
-            if (codeParse.find(i) != codeParse.end())
+            std::cin >> ingredient >> price;
+            objects[ingredient] = price;
+        }
+        std::string recipe, product;
+        long cantIngredients, cant;
+        std::set<std::pair<long, std::string>> recipes;
+        std::cin.ignore();
+        while (n--)
+        {
+            long priceT = 0;
+            std::getline(std::cin >> std::ws, recipe);
+            std::cin >> cantIngredients;
+            std::cin.ignore();
+            while (cantIngredients--)
             {
-                int code = codeParse[i];
-                if (ant != code)
+                std::cin >> product >> cant;
+                auto it = objects.find(product);
+                if (it != objects.end())
                 {
-                    ans += std::to_string(code);
-                    ant = code;
+                    priceT += (it->second) * cant;
                 }
             }
-            else
+            recipes.insert({priceT, recipe});
+        }
+        std::cout << name << std::endl;
+        bool can = true;
+        for (const auto &i : recipes)
+        {
+            if (b >= i.first)
             {
-                ant = -1;
+                std::cout << i.second << std::endl;
+                can = false;
             }
         }
-
-        std::cout << ans << std::endl;
+        if (can)
+        {
+            std::cout << "Too expensive!" << std::endl;
+        }
+        std::cout << std::endl;
     }
     return 0;
 }
