@@ -1,45 +1,50 @@
 #include <iostream>
+#include <vector>
 #include <string>
+#include <cstring>
 #include <algorithm>
-#include <set>
-#include <unordered_map>
-
-bool Dominant(const std::string &str1, const std::string &str2)
-{
-    std::string sorted_str1 = str1;
-    std::string sorted_str2 = str2;
-    std::sort(sorted_str1.begin(), sorted_str1.end());
-    std::sort(sorted_str2.begin(), sorted_str2.end());
-    return std::includes(sorted_str2.begin(), sorted_str2.end(), sorted_str1.begin(), sorted_str1.end());
-}
 
 int code()
 {
-    std::set<std::string> dominant;
-    std::string cad;
-    while (std::getline(std::cin, cad))
+    std::vector<std::vector<int>> cadsCount;
+    std::vector<std::string> cads;
+    std::string a;
+    while (std::cin >> a)
     {
-        if (cad.empty())
+        std::vector<int> aux(26, 0);
+        cads.push_back(a);
+        for (char c : a)
+            aux[c - 'a']++;
+        cadsCount.push_back(aux);
+    }
+    std::vector<std::string> ans;
+    for (int i = 0; i < cadsCount.size(); i++)
+    {
+        bool flag1 = true;
+        for (int j = 0; j < cadsCount.size(); j++)
         {
-            break;
-        }
-        bool can = 1;
-        for (const auto &i : dominant)
-        {
-            if (Dominant(cad, i))
+            if (i == j)
+                continue;
+            bool isSubset = true;
+            for (int k = 0; k < 26; k++)
             {
-                can = !can;
+                if (cadsCount[i][k] > cadsCount[j][k])
+                {
+                    isSubset = false;
+                    break;
+                }
+            }
+            if (isSubset)
+            {
+                flag1 = false;
                 break;
             }
         }
-        if (can)
-        {
-            dominant.insert(cad);
-        }
+        if (flag1)
+            ans.push_back(cads[i]);
     }
-    for (const auto &i : dominant)
-    {
+    std::sort(ans.begin(), ans.end());
+    for (const auto &i : ans)
         std::cout << i << "\n";
-    }
     return 0;
 }
