@@ -1,69 +1,83 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <climits>
 
-int positionFind(int i, int j, std::vector<long long> &input, std::vector<long long> &BST)
+int findMinDiff(std::vector<int> &numbers, std::vector<int> &accumulate, int l, int r, int &index, int &maxLeft)
 {
-    int pos = i;
-    long long mn = 10000, mx = 0;
-    for (int k = i; k <= j; k++)
+    int minDiff = INT_MAX;
+    int maxLeftLocal = INT_MIN;
+    for (int i = l; i <= r; i++)
     {
-        if (k != j && input[k] == input[k + 1])
+        if (i != r && numbers[i] == numbers[i + 1])
             continue;
-        long long l = BST[k - 1] - BST[i - 1], r = BST[j] - BST[k];
-        long long diff = std::abs(l - r);
-        if (diff < mn)
+        int left;
+        if (i - 1 < 0)
+            left = (l - 1 < 0) ? 0 : -accumulate[l - 1];
+        else
+            left = (l - 1 < 0) ? accumulate[i - 1] : accumulate[i - 1] - accumulate[l - 1];
+        int right = accumulate[r] - accumulate[i];
+        int diff = std::abs(right - left);
+        if (diff < minDiff)
         {
-            mn = diff;
-            mx = l;
-            pos = k;
+            minDiff = diff;
+            index = i;
+            maxLeftLocal = left;
         }
-        if (l > mx && diff == mn)
+        else if (diff == minDiff && left > maxLeftLocal)
         {
-            mx = l;
-            pos = k;
+            index = i;
+            maxLeftLocal = left;
         }
     }
-    return pos;
+    maxLeft = maxLeftLocal;
+    return minDiff;
 }
 
-void construction(int i, int j, std::vector<long long> &input, std::vector<long long> &BST)
+void order(std::vector<int> &numbers, std::vector<int> &accumulate, int l, int r)
 {
-    if (j < i)
+    if (r < l)
         return;
-    int pos = positionFind(i, j, input, BST);
-    long long data = BST[pos] - BST[pos - 1];
-    std::cout << data;
-    if (i != j)
+    int index, maxLeft;
+    int minDiff = findMinDiff(numbers, accumulate, l, r, index, maxLeft);
+    std::cout << numbers[index];
+    if (l != r)
     {
         std::cout << "(";
-        construction(i, pos - 1, input, BST);
-        if (i != pos && j != pos)
+        order(numbers, accumulate, l, index - 1);
+        if (l != index && index != r)
             std::cout << ",";
-        construction(pos + 1, j, input, BST);
+        order(numbers, accumulate, index + 1, r);
         std::cout << ")";
     }
 }
 
+void resolve(std::vector<int> &numbers)
+{
+    int l = 0;
+    int r = numbers.size() - 1;
+    std::vector<int> accumulate(numbers.size());
+    accumulate[0] = numbers[0];
+    for (int j = 1; j < numbers.size(); j++)
+        accumulate[j] = accumulate[j - 1] + numbers[j];
+    order(numbers, accumulate, l, r);
+    std::cout << "\n";
+}
+
 int code()
 {
-    int T, count = 1;
+    int T;
     std::cin >> T;
-    while (T--)
+    for (int i = 1; i <= T; i++)
     {
-        int n;
-        std::cin >> n;
-        std::vector<long long> input(n);
-        for (int i = 0; i < n; i++)
-            std::cin >> input[i];
-        std::sort(input.begin(), input.end());
-        std::vector<long long> BST(n + 1, 0);
-        for (int i = 1; i <= n; i++)
-            BST[i] = BST[i - 1] + input[i - 1];
-        std::cout << "Case #" << count++ << ": ";
-        construction(1, n, input, BST);
-        std::cout << "\n";
+        int x;
+        std::cin >> x;
+        std::vector<int> numbers(x);
+        for (auto &c : numbers)
+            std::cin >> c;
+        std::sort(numbers.begin(), numbers.end());
+        std::cout << "Case #" << i << ": ";
+        resolve(numbers);
     }
-
     return 0;
 }
