@@ -20,12 +20,7 @@ namespace
     }
     TEST(RunCodeTest, Tests)
     {
-        ASSERT_NO_FATAL_FAILURE(runTestCase("3\n2 5\n3 2\n2 1\n3\n3 3\n4 4\n5 5\n0\n", "Case 1: 8\nCase 2: 15\n"));
-    }
-
-    TEST(RunCodeTest, EmptyInput)
-    {
-        ASSERT_NO_FATAL_FAILURE(runTestCase("0", ""));
+        ASSERT_NO_FATAL_FAILURE(runTestCase("14 4 20\nSe mana Piedade tem casado com Quincas Borba apenas me daria uma esperanca colateral\n16 3 30\nNo dia seguinte entrou a dizer de mim nomes feios e acabou alcunhando me Dom Casmurro\n5 2 2\na de i de o\n5 2 2\na e i o u\n", "2\n1\n3\n3\n"));
     }
 } // namespace
 int main(int argc, char **argv)

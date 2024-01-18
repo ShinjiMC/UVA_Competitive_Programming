@@ -2,31 +2,36 @@
 #include <algorithm>
 #include <vector>
 
-bool compare(const std::pair<int, int> &a, const std::pair<int, int> &b)
-{
-    return b.second < a.second;
-}
-
 int code()
 {
-    long n, cases = 1;
-    while (std::cin >> n && n)
+    long n, l, c;
+    while (std::cin >> n >> l >> c)
     {
-        std::vector<std::pair<long, long>> list(n);
-        long b, j;
-        for (auto &c : list)
+        std::vector<long> words(n);
+        for (auto &i : words)
         {
-            std::cin >> c.first >> c.second;
+            std::string word;
+            std::cin >> word;
+            i = word.size();
         }
-        std::sort(list.begin(), list.end(), compare);
-        long res = 0, time_B = 0;
-        for (const auto &c : list)
+        long size = words[0], line = 1;
+        for (int i = 1; i < words.size(); i++)
         {
-            time_B += c.first;
-            res = std::max(res, time_B + c.second);
+            size += words[i] + 1;
+            if (size > c)
+            {
+                size = words[i];
+                line++;
+            }
+            else if (size == c && i + 1 < words.size())
+            {
+                size = words[i + 1];
+                i++;
+                line++;
+            }
         }
-        std::cout << "Case " << cases << ": " << res << "\n";
-        cases++;
+        long ans = line / l + (line % l != 0);
+        std::cout << ans << std::endl;
     }
     return 0;
 }
