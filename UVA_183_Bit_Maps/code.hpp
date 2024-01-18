@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <string>
 #include <algorithm>
+
 void BD(const std::vector<std::vector<int>> &ans, int minF, int maxF, int minC, int maxC, int &count)
 {
     if (minF == maxF || minC == maxC)
@@ -22,8 +23,8 @@ void BD(const std::vector<std::vector<int>> &ans, int minF, int maxF, int minC, 
     else
     {
         std::cout << "D";
-        int midF = (minF + maxF + 1) / 2;
-        int midC = (minC + maxC + 1) / 2;
+        int midF = (minF + maxF + 1) * 0.5;
+        int midC = (minC + maxC + 1) * 0.5;
         BD(ans, minF, midF, minC, midC, count);
         BD(ans, minF, midF, midC, maxC, count);
         BD(ans, midF, maxF, minC, midC, count);
@@ -38,13 +39,8 @@ void DB(std::vector<std::vector<int>> &ans, int minF, int maxF, int minC, int ma
     int ch = std::cin.get();
     if (ch == '0' || ch == '1')
     {
-        for (int i = minF; i < maxF; i++)
-        {
-            for (int j = minC; j < maxC; j++)
-            {
-                ans[i][j] = ch - '0';
-            }
-        }
+        for (int i = minF; i < maxF; ++i)
+            std::fill(ans[i].begin() + minC, ans[i].begin() + maxC, ch - '0');
         return;
     }
     else
@@ -58,6 +54,18 @@ void DB(std::vector<std::vector<int>> &ans, int minF, int maxF, int minC, int ma
     }
 }
 
+void print(const std::vector<std::vector<int>> &ans, int f, int c)
+{
+    for (int i = 0; i < f; ++i)
+        for (int j = 0; j < c; ++j)
+        {
+            if (0 < i + j && (i * c + j) % 50 == 0)
+                std::cout << "\n";
+            std::cout << ans[i][j];
+        }
+    std::cout << "\n";
+}
+
 int code()
 {
     char T;
@@ -67,7 +75,6 @@ int code()
         std::cin >> f >> c;
         std::cin.ignore();
         std::cout << (T == 'B' ? "D" : "B") << std::right << std::setw(4) << f << std::right << std::setw(4) << c << "\n";
-
         std::vector<std::vector<int>> ans(f, std::vector<int>(c));
         if (T == 'B')
         {
@@ -78,15 +85,9 @@ int code()
                 std::getline(std::cin, line);
                 bm += line;
             }
-
             for (int i = 0; i < f; i++)
-            {
                 for (int j = 0; j < c; j++)
-                {
                     ans[i][j] = bm[i * c + j] - '0';
-                }
-            }
-
             int count = 0;
             BD(ans, 0, f, 0, c, count);
             std::cout << "\n";
@@ -94,18 +95,7 @@ int code()
         else
         {
             DB(ans, 0, f, 0, c);
-            for (int i = 0; i < f; i++)
-            {
-                for (int j = 0; j < c; j++)
-                {
-                    if (0 < i + j && (i * c + j) % 50 == 0)
-                    {
-                        std::cout << "\n";
-                    }
-                    std::cout << ans[i][j];
-                }
-            }
-            std::cout << "\n";
+            print(ans, f, c);
         }
     }
     return 0;
