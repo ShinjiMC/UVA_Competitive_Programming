@@ -1,9 +1,7 @@
 .vscode/
 UVA_10245_The_Closest_Pair_Problem/main.exe
-UVA_11264_Coin_Collector/main.exe
 UVA_10020_Minimal_Coverage/main.exe
 UVA_1062_Containers/main.exe
-UVA_11729_Comando_War/main.exe
 UVA_11566_Lets_Yum_Cha/main.exe
 UVA_216_Getting_in_Line/main.exe
 UVA_1196_Tiling_Up_Blocks/main.exe
@@ -43,6 +41,10 @@ UVA_183_Bit_Maps/main.exe
 UVA_11147_KuPellaKeS_BST/main.exe
 
 # Algoritmos Voraces
+UVA_11264_Coin_Collector/main.exe
+UVA_11729_Comando_War/main.exe
+UVA_12673_Football/main.exe
+UVA_10954_Add_All/main.exe
 
 # Teoria de Numeros
 UVA_1644_Prime_Gap/main.exe

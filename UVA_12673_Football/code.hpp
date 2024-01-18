@@ -1,6 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <set>
 #include <vector>
 
 int code()
