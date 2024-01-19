@@ -20,7 +20,7 @@ namespace
     }
     TEST(RunCodeTest, Tests)
     {
-        ASSERT_NO_FATAL_FAILURE(runTestCase("1\n5 4\n1 2 2\n1 3 3\n1 4 4\n1 5 5\n5\n1 2 2\n2 3 5\n2 3 6\n4 5 10\n2 4 18\n", "Yes 1\nYes 1\nNo\nNo\nYes 8\n"));
+        ASSERT_NO_FATAL_FAILURE(runTestCase("1\n5 4\n1 2 2\n1 3 3\n1 4 4\n1 5 5\n5\n1 2 2\n2 3 5\n2 3 6\n4 5 10\n2 4 18\n", "Yes 1\nYes 2\nNo\nNo\nYes 8\n"));
     }
 } // namespace
 int main(int argc, char **argv)

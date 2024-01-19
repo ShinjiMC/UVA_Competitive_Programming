@@ -2,9 +2,7 @@
 UVA_10245_The_Closest_Pair_Problem/main.exe
 UVA_10020_Minimal_Coverage/main.exe
 UVA_1062_Containers/main.exe
-UVA_11566_Lets_Yum_Cha/main.exe
 UVA_216_Getting_in_Line/main.exe
-UVA_1196_Tiling_Up_Blocks/main.exe
 
 # Arreglos unidimensionales y bidimensionales
 UVA_13181_Sleeping_in_Hostels/main.exe
@@ -46,6 +44,11 @@ UVA_11729_Comando_War/main.exe
 UVA_12673_Football/main.exe
 UVA_10954_Add_All/main.exe
 UVA_12482_Short_Story_Competition/main.exe
+
+# Programacion Dinámica
+UVA_1196_Tiling_Up_Blocks/main.exe
+UVA_11566_Lets_Yum_Cha/main.exe
+UVA_10448_Unique_World/main.exe
 
 # Teoria de Numeros
 UVA_1644_Prime_Gap/main.exe
