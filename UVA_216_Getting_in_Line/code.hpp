@@ -44,7 +44,6 @@ int code()
                 bestOrder = order;
             }
         } while (std::next_permutation(order.begin(), order.end()));
-
         std::cout << "**********************************************************\n";
         std::cout << "Network #" << caseNum++ << "\n";
         for (int i = 1; i < n; i++)
